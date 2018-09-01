@@ -13,16 +13,19 @@ EquipmentDetailView.prototype.getDetail = function () {
       // console.log(equipmentItem);
       this.list = document.createElement('ul');
       this.container.appendChild(this.list);
-      this.render(equipmentItem["equipment_category"]);
+      this.render("Catagory", equipmentItem["equipment_category"]);
+      this.render("Weight", equipmentItem.weight)
+      const cost = `${equipmentItem.cost.quantity} ${equipmentItem.cost.unit}`
+      this.render("Cost", cost);
       // console.log(equipmentItem["equipment_category"]);
     };
   })
 };
 
-EquipmentDetailView.prototype.render = function (key) {
+EquipmentDetailView.prototype.render = function (key, value) {
   // console.log(key);
   const listItem = document.createElement('li');
-  listItem.textContent = `${key}`;
+  listItem.textContent = `${key}: ${value}`;
   this.list.appendChild(listItem);
 };
 
