@@ -23,6 +23,7 @@ EquipmentView.prototype.render = function () {
     const listItem = document.createElement('li');
     listItem.textContent = item.name;
     list.appendChild(listItem);
+    PubSub.publish('EquipmentView:items', item);
   });
 };
 
