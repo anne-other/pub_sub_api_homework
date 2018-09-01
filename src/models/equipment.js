@@ -8,8 +8,8 @@ const Equipment = function () {
 Equipment.prototype.getEquipment = function () {
   const request = new Request("http://www.dnd5eapi.co/api/equipment")
   request.get().then((data) => {
-    this.data = data;
-    PubSub.publish('Equipment:equipment-data-loaded', this.data);
+    this.equipment = data.results;
+    PubSub.publish('Equipment:equipment-data-loaded', this.equipment);
   }).catch((error) => {
     console.error(error);
   })
