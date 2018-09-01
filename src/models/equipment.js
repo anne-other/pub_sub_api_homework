@@ -15,15 +15,4 @@ Equipment.prototype.getEquipment = function () {
   })
 };
 
-Dogs.prototype.getData = function (breed) {
-  const url = `https://dog.ceo/api/breed/${ breed }/images`;
-  const request = new Request(url);
-  request.get().then((data) => {
-    this.data = data.message;
-    PubSub.publish('Dogs:dog-data-loaded', this.data);
-  }).catch((err) => {
-    console.error(err);
-  });
-}
-
 module.exports = Equipment;
