@@ -17,7 +17,14 @@ Equipment.prototype.getEquipment = function () {
 
 Equipment.prototype.details = function () {
   PubSub.subscribe('EquipmentView:items', (event) => {
-    console.log(event.detail);
+    const url = event.detail.url;
+    console.log(url);
+    const request = new Request(`${url}`)
+    request.get().then((data) => {
+      console.log(data);
+    }).catch((error) => {
+      console.error(error);
+    })
   })
 };
 
