@@ -1,4 +1,5 @@
 const PubSub = require('../helpers/pub_sub.js');
+const EquipmentDetailView = require('./equipment_detailed_view.js');
 
 const EquipmentView = function (container) {
   this.container = container
@@ -14,16 +15,16 @@ EquipmentView.prototype.bindEvents = function () {
 
 EquipmentView.prototype.render = function () {
   this.container.innerHTML = "";
-  const list = document.createElement('ul');
-  this.container.appendChild(list);
   // console.log(this.equipment);
   this.equipment.forEach((item) => {
     const equipmentItem = item;
     // console.log(item);
-    const listItem = document.createElement('li');
+    const listItem = document.createElement('h2');
     listItem.textContent = item.name;
-    list.appendChild(listItem);
+    this.container.appendChild(listItem);
     PubSub.publish('EquipmentView:items', item);
+    const equipmentDetialView = new EquipmentDetailView(listItem, item);
+    equipmentDetialView.getDetail();
   });
 };
 

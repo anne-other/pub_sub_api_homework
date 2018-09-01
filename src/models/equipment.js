@@ -3,6 +3,7 @@ const Request = require('../helpers/request.js');
 
 const Equipment = function () {
   this.equipment = [];
+  this.equipmentDetail = null;
 }
 
 Equipment.prototype.getEquipment = function () {
@@ -21,7 +22,8 @@ Equipment.prototype.details = function () {
     console.log(url);
     const request = new Request(`${url}`)
     request.get().then((data) => {
-      console.log(data);
+      this.equipmentDetail = data;
+      PubSub.publish('Equipment:equipment-detail-data-loaded', this.equipmentDetail);
     }).catch((error) => {
       console.error(error);
     })
