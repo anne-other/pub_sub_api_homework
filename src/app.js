@@ -1,3 +1,6 @@
+const Equipment = require('./models/equipment.js');
+
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("javascript loaded");
+  const equipment = new Equipment();
+  equipment.getEquipment();
 })
