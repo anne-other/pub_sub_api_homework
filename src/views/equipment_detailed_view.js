@@ -51,10 +51,21 @@ EquipmentDetailView.prototype.render = function (key, value) {
 
 EquipmentDetailView.prototype.renderWeapon = function (item) {
   this.render("Weapon Category", item["weapon_category:"]);
+  this.render("Range", item.weapon_range);
+  const damage = `${item.damage.dice_count}d${item.damage.dice_value} ${item.damage.damage_type.name}`
+  this.render("Damage", damage);
 };
 
 EquipmentDetailView.prototype.renderArmor = function (item) {
   this.render("Armor Category", item.armor_category);
+  let armorClass = `${item.armor_class.base}`
+  if (item.armor_class.dex_bonus) {
+    armorClass = armorClass + " + Dex modifier"
+    if (item.armor_class.max_bonus) {
+      armorClass = armorClass + ` (max ${item.armor_class.max_bonus})`
+    }
+  }
+  this.render("Armor Class", armorClass);
 };
 
 EquipmentDetailView.prototype.renderGear = function (item) {
@@ -65,6 +76,13 @@ EquipmentDetailView.prototype.renderGear = function (item) {
 
 EquipmentDetailView.prototype.renderMountsAndVehicles = function (item) {
   this.render("Vehicle Category", item.vehicle_category);
+  if (item.speed) {
+    const speed = `${item.speed.quantity} ${item.speed.unit}`
+    this.render("Speed", speed);
+  }
+  if (item.capacity) {
+    this.render("Capacity", item.capacity);
+  }
 };
 
 module.exports = EquipmentDetailView;
