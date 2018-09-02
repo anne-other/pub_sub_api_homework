@@ -54,7 +54,20 @@ Equipment.prototype.uniqueCatagoryList = function () {
 
 Equipment.prototype.bindEvents = function () {
   PubSub.subscribe('SelectView:change', (event) => {
-    console.log(event.detail);
+    const catagoryIndex = event.detail;
+    this.publishEquipmentByCatagory(catagoryIndex);
+  })
+};
+
+Equipment.prototype.publishEquipmentByCatagory = function (catagoryIndex) {
+  const foundEquipment = this.equipmentByCatagory(catagoryIndex);
+  console.log(foundEquipment);
+};
+
+Equipment.prototype.equipmentByCatagory = function (catagoryIndex) {
+  const selectedCatagory = this.catagories[catagoryIndex];
+  return this.equipmentAllDetails.filter((equipment) => {
+    return equipment.equipment_category === selectedCatagory;
   })
 };
 
