@@ -61,7 +61,7 @@ Equipment.prototype.bindEvents = function () {
 
 Equipment.prototype.publishEquipmentByCatagory = function (catagoryIndex) {
   const foundEquipment = this.equipmentByCatagory(catagoryIndex);
-  console.log(foundEquipment);
+  PubSub.publish('Equipment:slected-equipment-ready', foundEquipment);
 };
 
 Equipment.prototype.equipmentByCatagory = function (catagoryIndex) {
