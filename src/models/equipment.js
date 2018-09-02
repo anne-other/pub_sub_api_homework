@@ -4,6 +4,7 @@ const Request = require('../helpers/request.js');
 const Equipment = function () {
   this.equipment = [];
   this.equipmentDetail = null;
+  this.equipmentAllDetails = [];
 }
 
 Equipment.prototype.getEquipment = function () {
@@ -23,10 +24,31 @@ Equipment.prototype.details = function () {
     const request = new Request(`${url}`)
     request.get().then((data) => {
       this.equipmentDetail = data;
+      this.equipmentAllDetails.push(this.equipmentDetail)
       PubSub.publish('Equipment:equipment-detail-data-loaded', this.equipmentDetail);
+      if (this.equipmentAllDetails.length === this.equipment.length) {
+        this.typeList();
+      }
     }).catch((error) => {
       console.error(error);
     })
+  })
+};
+
+Equipment.prototype.typeList = function () {
+  this.catagories = this.catagoryList();
+  this.catagories = this.uniqueCatagoryList();
+  console.log(this.catagories);
+}
+
+Equipment.prototype.catagoryList = function () {
+  const fullList = this.equipmentAllDetails.map(equipment => equipment.equipment_category);
+  return fullList;
+};
+
+Equipment.prototype.uniqueCatagoryList = function () {
+  return this.catagoryList().filter((equipment, index, array) => {
+    return array.indexOf(equipment) === index;
   })
 };
 
