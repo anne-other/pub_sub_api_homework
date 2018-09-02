@@ -52,4 +52,10 @@ Equipment.prototype.uniqueCatagoryList = function () {
   })
 };
 
+Equipment.prototype.bindEvents = function () {
+  PubSub.subscribe('SelectView:change', (event) => {
+    console.log(event.detail);
+  })
+};
+
 module.exports = Equipment;

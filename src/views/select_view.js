@@ -7,6 +7,10 @@ const SelectView = function (selectElement) {
 SelectView.prototype.bindEvents = function () {
   PubSub.subscribe('Equipment:Catagories_ready', (event) => {
     this.populateSelect(event.detail);
+  });
+  this.selectElement.addEventListener('change', (event) => {
+    const selectedIndex = event.target.value;
+    PubSub.publish('SelectView:change', selectedIndex);
   })
 };
 

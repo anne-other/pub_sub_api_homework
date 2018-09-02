@@ -3,11 +3,13 @@ const EquipmentView = require('./views/equipment_view.js');
 const SelectView = require('./views/select_view.js');
 
 document.addEventListener('DOMContentLoaded', () => {
+  const equipment = new Equipment();
+  equipment.bindEvents();
+
   const selectCatagory = document.querySelector('select#catagory-select')
   const selectView = new SelectView(selectCatagory);
   selectView.bindEvents();
 
-  const equipment = new Equipment();
   equipment.details();
 
   const equipmentDetail = document.querySelector('#equipment');
