@@ -38,7 +38,7 @@ Equipment.prototype.details = function () {
 Equipment.prototype.typeList = function () {
   this.catagories = this.catagoryList();
   this.catagories = this.uniqueCatagoryList();
-  console.log(this.catagories);
+  PubSub.publish('Equipment:Catagories_ready', this.catagories);
 }
 
 Equipment.prototype.catagoryList = function () {
